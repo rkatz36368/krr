@@ -142,11 +142,15 @@
 	branches)))
 
 
+
+
 (defun preproc (formula)
   (cond 
     ((and (atom formula)
 	  (symbolp formula))
      formula)
+    ((and (equal (length wff) 3) (equal (car wff) 'equiv))
+    	(preproc `(and (implies ,(cdr wff)) (implies ,(reverse (cdr wff))))))
     ((and (listp formula)
 	  (equal (car formula) 'not)
 	  (= (length formula) 2))
